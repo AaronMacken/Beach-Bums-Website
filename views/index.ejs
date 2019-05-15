@@ -1,0 +1,27 @@
+<% include partials/header %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <h3 class="strokeme my-2" id="indexh3">
+        Click a beach to read the review!
+      </h3>
+    </div>
+  </div>
+
+  <% beach.forEach((e) => { %>
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center">
+      <div class="card" style="width: 25rem;">
+        <img class="card-img-top" src="<%= e.image %>" />
+        <div class="card-body">
+          <h5 class="card-title strokeme text-center"><%= e.name %></h5>
+          <a href="/beaches/<%=e._id%>" class="btn btn-primary">Read this beach review!</a>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include partials/footer %>

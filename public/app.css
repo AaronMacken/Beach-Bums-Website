@@ -1,47 +1,60 @@
 body {
-    margin-top: 4rem;
-    background-color: #A6FED3;
+  margin-top: 4rem;
+  background-color: #a6fed3;
+  font-family: "Indie Flower", cursive;
+  color: #f3f3e0;
 }
 
 h1 {
-    font-family: 'Indie Flower', cursive;
-    font-size: 10rem;
-    color: #F3F3E0;
+  font-size: 10rem;
 }
 
 /* text outline */
 
 .strokeme {
-    color: white;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 /* bootstrap navbar styling */
 
 .navbar-nav {
-    flex: 1;
-    margin: auto !important;
-    display: flex;
-    justify-content: space-evenly;
+  flex: 1;
+  margin: auto !important;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .nav-item {
-    font-family: 'Indie Flower', cursive;
-    font-size: 2rem;
+  font-family: "Indie Flower", cursive;
+  font-size: 2rem;
 }
 
 a.nav-link {
-    color: #F3F3E0;
-    padding: 0;
+  color: #f3f3e0;
+  padding: 0;
 }
 
-a.nav-link:hover{
-    border-bottom: 2px solid #fff;
+a.nav-link:hover {
+  border-bottom: 2px solid #fff;
 }
 .bg-light {
-    background-color: #81EEE1 !important;
+  background-color: #81eee1 !important;
 }
-#shark{
-    position: relative;
-    right: 5%
+#shark {
+  position: relative;
+  right: 5%;
+}
+#indexh3 {
+  text-decoration: underline;
+}
+
+.centerBlock {
+  display: table;
+  margin: auto;
+}
+
+.card-body{
+  margin: auto;
 }
