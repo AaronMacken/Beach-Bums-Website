@@ -3,21 +3,30 @@
 <div class="container">
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <h2 class="strokeme"><%= beach.name %></h2>
+      <h2 class="strokeme"><%= blog.name %></h2>
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <img src="<%= beach.image %>" alt="">
+      <img src="<%= blog.image %>" alt="" />
     </div>
   </div>
 
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <h3 class="strokeme my-2"><%= beach.comments %></h3>
+      <h3 class="strokeme my-2"><%= blog.content %></h3>
     </div>
   </div>
+  <a href="/beaches" class="btn btn-outline-primary d-inline-flex">Go Back</a>
+  <a href="/beaches/<%= blog._id %>/edit" class="btn btn-outline-warning">
+    Edit Post</a
+  >
+  <form
+    action="/beaches/<%= blog._id %>?_method=DELETE"
+    method="POST">
+    <button class="btn btn-outline-danger">Delete Post</button>
+  </form>
 </div>
 
 <% include partials/footer %>

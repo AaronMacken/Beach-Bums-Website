@@ -4,15 +4,14 @@
 const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
-  request = require("request"),
-  mongoose = require("mongoose");
+  mongoose = require("mongoose"),
+  methodOverride = require("method-override");
 
-// set view engine
+// App Configure
 app.set("view engine", "ejs");
-// use public directory
 app.use(express.static("public"));
-// use body parser
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 // mongo set up
 ////////////////////////////////////
@@ -25,20 +24,20 @@ mongoose.connect("mongodb://localhost:27017/beachApp", {
 let beachSchema = new mongoose.Schema({
   name: String,
   image: String,
-  comments: String
+  content: String
 });
 // create db model
 let Beach = mongoose.model("Beach", beachSchema);
 
-// routes
+// Routes
 ////////////////////////////////////
 
-// landing
+// Landing
 app.get("/", (req, res) => {
   res.render("landing");
 });
 
-// index
+// Index
 app.get("/beaches", (req, res) => {
   Beach.find({}, (err, beach) => {
     if (err) console.log("Something went wrong when fetching mongo items.");
@@ -48,19 +47,14 @@ app.get("/beaches", (req, res) => {
   });
 });
 
-// new
+// New
 app.get("/beaches/new", (req, res) => {
   res.render("new");
 });
 
-// create
+// Create
 app.post("/beaches", (req, res) => {
-  let name = req.body.name,
-    image = req.body.image,
-    comments = req.body.comment;
-  let beach = { name: name, image: image, comments: comments };
-
-  Beach.create(beach, (err, newBeach) => {
+  Beach.create(req.body.blog, (err, newBeach) => {
     if (err) console.log("Something went wrong when posting");
     else {
       console.log("Added: " + newBeach.name);
@@ -69,35 +63,61 @@ app.post("/beaches", (req, res) => {
   });
 });
 
-
-// show
+// Show
 app.get("/beaches/:id", (req, res) => {
-  Beach.findById(req.params.id, (err, foundBeach) => {
+  Beach.findById(req.params.id, (err, foundBlog) => {
     if(err) {
       console.log(err);
     }
     else{
-      res.render("show", {beach: foundBeach});
+      res.render("show", {blog: foundBlog});
     }
   });
 });
+
+// Edit
+app.get("/beaches/:id/edit", (req, res) => {
+  Beach.findById(req.params.id, (err, updateBlog) => {
+    if(err){
+      res.redirect("/beaches");
+    }else{
+      res.render("edit", {blog: updateBlog});
+    }
+  });
+})
+
+// Update
+app.put("/beaches/:id", (req, res) => {
+  Beach.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
+    if(err){
+      res.redirect("/beaches");
+    }else{
+      res.redirect("/beaches/" + req.params.id);
+    }
+  });
+});
+
+// Destroy
+app.delete("/beaches/:id", (req, res) => {
+  Beach.findByIdAndRemove(req.params.id, (err) => {
+    if(err){
+      res.redirect("/beaches");
+    }else{
+      res.redirect("/beaches");
+    }
+  });
+});
+
+// port listen
+app.listen(3000, () => console.log("Server is listening."));
+
 
 //initial create
 // Beach.create({
 //     name: "Sandy Shores",
 //     image: "https://farm4.staticflickr.com/3851/14375447405_e6e792e9be.jpg",
-//     comments: "They serve alcohol out of a coconut. I'm for sure coming back next year without the family."
+//     content: "They serve alcohol out of a coconut. I'm for sure coming back next year without the family."
 // }, (err, newBeach) => {
 //     if(err) console.log("Something went wrong with initial create.");
 //     else console.log("Added " + newBeach.name);
 // }); 
-// remove (for convenience)
-// Beach.remove({name: "Sandy Shores"}, (err, remBeach) => {
-//     if(err) console.log("Something went wrong when removing the item.")
-//     else{
-//         console.log("Removed item");
-//     }
-// });
-
-// port listen
-app.listen(3000, () => console.log("Server is listening."));
