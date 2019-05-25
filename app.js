@@ -5,7 +5,11 @@ const express = require("express"),
   app = express(),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
-  methodOverride = require("method-override");
+  methodOverride = require("method-override"),
+  Beach = require("./models/beach"),
+  Comment = require("./models/comment"),
+  seedDB = require("./seeds");
+
 
 // App Configure
 app.set("view engine", "ejs");
@@ -13,28 +17,20 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-// mongo set up
-////////////////////////////////////
-
 // connect mongo
 mongoose.connect("mongodb://localhost:27017/beachApp", {
   useNewUrlParser: true
 });
-// create db schema
-let beachSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  content: String
-});
-// create db model
-let Beach = mongoose.model("Beach", beachSchema);
+
+// Seed DB - Run this once then comment out to prevent null data errors.
+// seedDB();
 
 // Routes
 ////////////////////////////////////
 
 // Landing
 app.get("/", (req, res) => {
-  res.render("landing");
+  res.render("beaches/landing");
 });
 
 // Index
@@ -42,14 +38,14 @@ app.get("/beaches", (req, res) => {
   Beach.find({}, (err, beach) => {
     if (err) console.log("Something went wrong when fetching mongo items.");
     else {
-      res.render("index", { beach: beach });
+      res.render("beaches/index", { beach: beach });
     }
   });
 });
 
 // New
 app.get("/beaches/new", (req, res) => {
-  res.render("new");
+  res.render("beaches/new");
 });
 
 // Create
@@ -65,12 +61,13 @@ app.post("/beaches", (req, res) => {
 
 // Show
 app.get("/beaches/:id", (req, res) => {
-  Beach.findById(req.params.id, (err, foundBlog) => {
+  Beach.findById(req.params.id).populate("comments").exec((err, foundBlog) => {
     if(err) {
       console.log(err);
     }
     else{
-      res.render("show", {blog: foundBlog});
+      console.log(foundBlog)
+      res.render("beaches/show", {blog: foundBlog});
     }
   });
 });
@@ -108,16 +105,34 @@ app.delete("/beaches/:id", (req, res) => {
   });
 });
 
+// Nested Routes - Comments
+// New comment form
+app.get("/beaches/:id/comments/new", (req, res) => {
+  Beach.findById(req.params.id, (err, beach) => {
+    if(err) console.log(err)
+    else{
+      res.render("comments/new", {beach: beach});
+    }
+  });
+});
+// New comment post
+app.post("/beaches/:id/comments", (req, res) => {
+  Beach.findById(req.params.id, (err, beach) => {
+    if(err) console.log(err)
+    else{
+      Comment.create(req.body.comment, (err, comment) => {
+        if(err) console.log(err)
+        else{
+          beach.comments.push(comment);
+          beach.save();
+          res.redirect('/beaches/' + beach._id);
+        }
+      });
+    }
+  });
+});
+
 // port listen
 app.listen(3000, () => console.log("Server is listening."));
 
 
-//initial create
-// Beach.create({
-//     name: "Sandy Shores",
-//     image: "https://farm4.staticflickr.com/3851/14375447405_e6e792e9be.jpg",
-//     content: "They serve alcohol out of a coconut. I'm for sure coming back next year without the family."
-// }, (err, newBeach) => {
-//     if(err) console.log("Something went wrong with initial create.");
-//     else console.log("Added " + newBeach.name);
-// }); 
