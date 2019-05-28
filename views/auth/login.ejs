@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+
+<h2 class="strokeme text-center">Login!</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <!-- comment route -->
+            <form action="/login" method="POST" class="d-flex flex-column">
+                <input style="width: 25vw;" class="d-block text-center" type="text" placeholder="Username" name="username">
+                <input style="width: 25vw;" class="d-block text-center" type="password" placeholder="Password" name="password">
+                <button type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

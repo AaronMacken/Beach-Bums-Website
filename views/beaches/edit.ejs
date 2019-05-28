@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row">
         <div class="col-12 d-flex justify-content-center">
-            <form action="/beaches/<%=blog._id%>?_method=PUT" method="POST" class="d-flex flex-column">
-                <input style="width: 25vw;" value="<%= blog.name %>" class="d-block text-center" type="text" placeholder="Enter the name of the beach" name="blog[name]">
-                <input style="width: 25vw;" value="<%= blog.image %>" class="d-block text-center" type="text" placeholder="Enter an image addess" name="blog[image]">
-                <textarea class="text-center" placeholder="Enter something about this spot!" name="blog[content]"><%= blog.content %></textarea>
+            <form action="/beaches/<%=beach._id%>?_method=PUT" method="POST" class="d-flex flex-column">
+                <input style="width: 25vw;" value="<%= beach.name %>" class="d-block text-center" type="text" placeholder="Enter the name of the beach" name="beach[name]">
+                <input style="width: 25vw;" value="<%= beach.image %>" class="d-block text-center" type="text" placeholder="Enter an image addess" name="beach[image]">
+                <textarea class="text-center" placeholder="Enter something about this spot!" name="beach[content]"><%= beach.content %></textarea>
                 <button type="submit" class="btn btn-primary ">Submit</button>
             </form>
         </div>

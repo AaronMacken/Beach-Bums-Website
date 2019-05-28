@@ -25,6 +25,14 @@
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="/beaches" class="nav-link">Read</a></li>
                 <li class="nav-item"><a href="/beaches/new" class="nav-link">Post</a></li>
+                <% if(!currentUser) { %>
+                <li class="nav-item"><a href="/register" class="nav-link">Signup</a></li> 
+                <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                <% } else { %>
+                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
+                <% } %>
+                
+                
             </ul>
         </div>
     </nav>

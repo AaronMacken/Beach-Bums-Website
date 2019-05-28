@@ -4,28 +4,28 @@
 <div class="container">
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <h2 class="strokeme"><%= blog.name %></h2>
+      <h2 class="strokeme"><%= beach.name %></h2>
     </div>
   </div>
 
   <!-- Image -->
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <img src="<%= blog.image %>" alt="" />
+      <img src="<%= beach.image %>" alt="" />
     </div>
   </div>
 
-  <!-- Blog post content -->
+  <!-- Beach post content -->
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <h3 class="strokeme my-2"><%= blog.content %></h3>
+      <h3 class="strokeme my-2"><%= beach.content %></h3>
     </div>
   </div>
 
-  <!-- Blog post comments -->
+  <!-- Beach post comments -->
   <div class="row">
     <div class="col-12 d-flex justify-content-center">
-      <% blog.comments.forEach((comment) => { %>
+      <% beach.comments.forEach((comment) => { %>
         <h5 class="strokeme"><%= comment.author %> said <%= comment.text %></h5>
       <% }) %>
     </div>
@@ -33,11 +33,11 @@
 
   <!-- Control buttons -->
   <a href="/beaches" class="btn btn-outline-primary d-inline-flex">Go Back</a>
-  <a href="/beaches/<%= blog._id %>/edit" class="btn btn-outline-warning">
+  <a href="/beaches/<%= beach._id %>/edit" class="btn btn-outline-warning">
     Edit Post</a>
-    <a class="btn btn-outline-success" href="/beaches/<%=blog._id%>/comments/new">Leave a comment</a>
+    <a class="btn btn-outline-success" href="/beaches/<%=beach._id%>/comments/new">Leave a comment</a>
   <form
-    action="/beaches/<%= blog._id %>?_method=DELETE"
+    action="/beaches/<%= beach._id %>?_method=DELETE"
     method="POST">
     <button class="btn btn-outline-danger">Delete Post</button>
   </form>
