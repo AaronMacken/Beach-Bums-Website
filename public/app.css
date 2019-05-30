@@ -1,6 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 body {
   margin-top: 4rem;
-  background-color: #a6fed3;
   font-family: "Indie Flower", cursive;
   color: #f3f3e0;
 }
@@ -28,7 +32,7 @@ h1 {
 
 .nav-item {
   font-family: "Indie Flower", cursive;
-  font-size: 2rem;
+  font-size: 1.75rem;
 }
 
 a.nav-link {
@@ -39,13 +43,7 @@ a.nav-link {
 a.nav-link:hover {
   border-bottom: 2px solid #fff;
 }
-.bg-light {
-  background-color: #81eee1 !important;
-}
-#shark {
-  position: relative;
-  right: 5%;
-}
+
 #indexh3 {
   text-decoration: underline;
 }
@@ -57,4 +55,17 @@ a.nav-link:hover {
 
 .card-body{
   margin: auto;
+}
+
+.logo {
+  font-size: 2rem;
+}
+
+.header {
+  height: 95vh;
+  background-image: 
+  linear-gradient(to top, rgba(184, 255, 238, 0.342), rgba(158, 255, 232, 0.712)),
+  url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80);
+  background-size: cover;
+  background-position: center;
 }
