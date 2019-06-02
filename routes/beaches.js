@@ -20,7 +20,14 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 // Create
 router.post("/", isLoggedIn, (req, res) => {
-  Beach.create(req.body.beach, (err, newBeach) => {
+  var author = {id: req.user._id, username: req.user.username}
+  var beach = {
+    name: req.body.beach.name,
+    image: req.body.beach.image,
+    content: req.body.beach.content,
+    author: author
+  }
+  Beach.create(beach, (err, newBeach) => {
     if (err) console.log("Something went wrong when posting");
     else {
       console.log("Added: " + newBeach.name);
