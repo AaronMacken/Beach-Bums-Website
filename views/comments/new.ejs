@@ -6,7 +6,6 @@
         <div class="col-12 d-flex justify-content-center">
             <!-- comment route -->
             <form action="/beaches/<%=beach._id%>/comments" method="POST" class="d-flex flex-column">
-                <input style="width: 25vw;" class="d-block text-center" type="text" placeholder="Author" name="comment[author]">
                 <textarea name="comment[text]" class="text-center" placeholder="Write your comment here"></textarea>
                 <button type="submit" class="btn btn-primary ">Submit</button>
             </form>

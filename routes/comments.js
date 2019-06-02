@@ -22,6 +22,12 @@ router.post("/", isLoggedIn, (req, res) => {
       Comment.create(req.body.comment, (err, comment) => {
         if (err) console.log(err);
         else {
+          // Add username and id to comment
+          comment.author.id = req.user._id;
+          comment.author.username = req.user.username;
+          // Save comment
+          comment.save();
+
           beach.comments.push(comment);
           beach.save();
           res.redirect("/beaches/" + beach._id);

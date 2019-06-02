@@ -27,11 +27,11 @@ function seedDB() {
     if (err) console.log(err);
     else {
       // Now that beaches are removed, remove the existing comments
-      console.log("Removed beach");
+      console.log("Removed beaches");
       Comment.remove({}, err => {
         if (err) console.log(err);
         else {
-          console.log("Removed comment");
+          console.log("Removed commentes");
           // Insert the data from the sample data array we created
           data.forEach(seed => {
             // Create a beach object for each piece of sample data we created
