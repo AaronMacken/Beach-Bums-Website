@@ -36,29 +36,29 @@ function seedDB() {
           data.forEach(seed => {
             // Create a beach object for each piece of sample data we created
             // This only covers the main data for the object and not the comments
-            Beach.create(seed, (err, beach) => {
-              if (err) console.log(error);
-              else {
-                console.log("Added a beach");
-                // Time to add the sample comments
-                Comment.create(
-                  {
-                    text: "Salt life, Salt life!",
-                    author: "I_Love_Beaches_32"
-                  },
-                  (err, comment) => {
-                    // call back with the comment added to mongo
-                    if (err) console.log(err);
-                    else {
-                      // using the beach object that was added to mogno
-                      beach.comments.push(comment);
-                      beach.save();
-                      console.log("Created new comment");
-                    }
-                  }
-                );
-              }
-            });
+            // Beach.create(seed, (err, beach) => {
+            //   if (err) console.log(error);
+            //   else {
+            //     console.log("Added a beach");
+            //     // Time to add the sample comments
+            //     Comment.create(
+            //       {
+            //         text: "Salt life, Salt life!",
+            //         author: "I_Love_Beaches_32"
+            //       },
+            //       (err, comment) => {
+            //         // call back with the comment added to mongo
+            //         if (err) console.log(err);
+            //         else {
+            //           // using the beach object that was added to mogno
+            //           beach.comments.push(comment);
+            //           beach.save();
+            //           console.log("Created new comment");
+            //         }
+            //       }
+            //     );
+            //   }
+            // });
           });
         }
       });

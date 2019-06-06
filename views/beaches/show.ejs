@@ -27,20 +27,38 @@
     <div class="col-12 d-flex justify-content-center">
       <% beach.comments.forEach((comment) => { %>
         <h5 class="strokeme"><%= comment.author.username %> said <%= comment.text %></h5>
-      <% }) %>
+        <!-- Comment control buttons -->
+
+
+        <% if(currentUser && comment.author.id.equals(currentUser._id)) { %>
+          <a class="btn btn-warning controlBtn" href="/beaches/<%= beach._id %>/comments/<%= comment._id %>/edit">Edit</a>
+          <form action="/beaches/<%= beach._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+            <button class="btn btn-danger">Delete</button>
+          </form>
+      <% }}); %>
+
+
     </div>
   </div>
 
   <!-- Control buttons -->
   <a href="/beaches" class="btn btn-outline-primary d-inline-flex">Go Back</a>
-  <a href="/beaches/<%= beach._id %>/edit" class="btn btn-outline-warning">
-    Edit Post</a>
-    <a class="btn btn-outline-success" href="/beaches/<%=beach._id%>/comments/new">Leave a comment</a>
-  <form
-    action="/beaches/<%= beach._id %>?_method=DELETE"
-    method="POST">
+  <a class="btn btn-outline-success" href="/beaches/<%=beach._id%>/comments/new">Leave a comment</a>
+
+
+  <!-- Post owner control buttons -->
+
+  <% if(currentUser && beach.author.id.equals(currentUser._id)) { %>
+
+  <a href="/beaches/<%= beach._id %>/edit" class="btn btn-outline-warning controlBtn">Edit Post</a>
+  <form action="/beaches/<%= beach._id %>?_method=DELETE" method="POST">
     <button class="btn btn-outline-danger">Delete Post</button>
   </form>
+
+  <% } %>
+  
+
+
 </div>
 
 <% include ../partials/footer %>

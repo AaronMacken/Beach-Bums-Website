@@ -69,3 +69,8 @@ a.nav-link:hover {
   background-size: cover;
   background-position: center;
 }
+
+.controlBtn {
+  display: inline-block;
+  margin-left: 15px;
+}

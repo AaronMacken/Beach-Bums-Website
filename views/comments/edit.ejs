@@ -1,0 +1,16 @@
+<% include ../partials/header %>
+
+<h2 class="strokeme text-center">Edit a Comment</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <!-- comment route -->
+            <form action="/beaches/<%=beach_id%>/comments/<%= comment._id %>?_method=PUT" method="POST" class="d-flex flex-column">
+                <textarea name="comment[text]" class="text-center" placeholder="Write your comment here"> <%= comment.text %></textarea>
+                <button type="submit" class="btn btn-primary ">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

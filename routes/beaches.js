@@ -20,13 +20,13 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 // Create
 router.post("/", isLoggedIn, (req, res) => {
-  var author = {id: req.user._id, username: req.user.username}
+  var author = { id: req.user._id, username: req.user.username };
   var beach = {
     name: req.body.beach.name,
     image: req.body.beach.image,
     content: req.body.beach.content,
     author: author
-  }
+  };
   Beach.create(beach, (err, newBeach) => {
     if (err) console.log("Something went wrong when posting");
     else {
@@ -50,47 +50,53 @@ router.get("/:id", (req, res) => {
 });
 
 // Edit
-router.get("/:id/edit", isLoggedIn, (req, res) => {
-  Beach.findById(req.params.id, (err, updateBeach) => {
-    if (err) {
-      res.redirect("/beaches");
-    } else {
-      res.render("beaches/edit", { beach: updateBeach });
-    }
+router.get("/:id/edit", checkPostOwnership, (req, res) => {
+  Beach.findById(req.params.id, (err, foundBeach) => {
+    res.render("beaches/edit", {beach: foundBeach});
   });
 });
 
 // Update
-router.put("/:id", isLoggedIn, (req, res) => {
+router.put("/:id", checkPostOwnership, (req, res) => {
   Beach.findByIdAndUpdate(
-    req.params.id,
-    req.body.beach,
-    (err, updatedBeach) => {
-      if (err) {
-        res.redirect("/beaches");
-      } else {
+    req.params.id, req.body.beach, (err, updatedBeach) => {
         res.redirect("/beaches/" + req.params.id);
-      }
     }
   );
 });
 
 // Destroy
-router.delete("/:id", isLoggedIn, (req, res) => {
+router.delete("/:id", checkPostOwnership, (req, res) => {
   Beach.findByIdAndRemove(req.params.id, err => {
-    if (err) {
       res.redirect("/beaches");
-    } else {
-      res.redirect("/beaches");
-    }
   });
 });
+
+// MiddleWare
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
   res.redirect("/login");
+}
+
+function checkPostOwnership (req, res, next) {
+  if (req.isAuthenticated()) {
+    Beach.findById(req.params.id, (err, foundBeach) => {
+      if (err) {
+        res.redirect("back");
+      } else {
+        if (foundBeach.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          res.redirect("back");
+        }
+      }
+    });
+  } else {
+    res.redirect("back");
+  }
 }
 
 module.exports = router;
