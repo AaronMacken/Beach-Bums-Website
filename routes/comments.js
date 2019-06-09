@@ -7,8 +7,9 @@ var Beach = require("../models/beach"),
 // New comment form
 router.get("/new", middleware.isLoggedIn, (req, res) => {
   Beach.findById(req.params.id, (err, beach) => {
-    if (err) console.log(err);
-    else {
+    if (err) {
+      
+    } else {
       res.render("comments/new", { beach: beach });
     }
   });
