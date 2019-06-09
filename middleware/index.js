@@ -18,6 +18,7 @@ middlewareObject.checkBeachOwnership = function(req, res, next) {
       }
     });
   } else {
+    req.flash("error", "You must be signed in to do that.");
     res.redirect("back");
   }
 };
@@ -36,6 +37,7 @@ middlewareObject.checkCommentOwnership = function(req, res, next) {
       }
     });
   } else {
+    req.flash("error", "You must be signed in to do that.");
     res.redirect("back");
   }
 };
@@ -44,6 +46,7 @@ middlewareObject.isLoggedIn = function(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+  req.flash("error", "You must signed in to do that.");
   res.redirect("/login");
 };
 

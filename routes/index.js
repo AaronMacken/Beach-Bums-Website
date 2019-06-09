@@ -20,9 +20,10 @@ router.post("/register", (req, res) => {
   var newUser = new User({ username: req.body.username });
   User.register(newUser, req.body.password, (err, user) => {
     if (err) {
-      console.log(err);
+      req.flash("error", "Something went wrong.");
       return res.redirect("/register");
     }
+    req.flash("success", "Thanks for signing up! Please sign in.")
     res.redirect("/login");
   });
 });
@@ -39,12 +40,15 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/login"
-  })
+    failureRedirect: "/login",
+    failureFlash: "Username or password incorrect.",
+    successFlash:"Welcome to Beach Bums!"
+  }), function(req, res){}
 );
 
 // logout route
 router.get("/logout", (req, res) => {
+  req.flash("success", "See you next time " + req.user.username + "!")
   req.logout();
   res.redirect("/");
 });

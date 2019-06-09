@@ -1,38 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
     <!-- Google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Indie+Flower"
+      rel="stylesheet"
+    />
     <!-- local style sheet -->
-    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/app.css" />
     <title>Beach Bum</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar navbar-expand-md bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav strokeme">
-                <li class="nav-item"><a href="/" class="nav-link logo">Beach Bums</a></li>
-                <li class="nav-item"><a href="/beaches" class="nav-link">Read</a></li>
-                <li class="nav-item"><a href="/beaches/new" class="nav-link">Post</a></li>
-                <% if(!currentUser) { %>
-                <li class="nav-item"><a href="/register" class="nav-link">Signup</a></li> 
-                <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
-                <% } else { %>
-                    <li class="nav-item"><a href="/logout" class="nav-link">Logout</a></li>
-                <% } %>
-                
-                
-            </ul>
-        </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav strokeme">
+          <li class="nav-item">
+            <a href="/" class="nav-link logo">Beach Bums</a>
+          </li>
+          <li class="nav-item"><a href="/beaches" class="nav-link">Read</a></li>
+          <li class="nav-item">
+            <a href="/beaches/new" class="nav-link">Post</a>
+          </li>
+          <% if(!currentUser) { %>
+          <li class="nav-item">
+            <a href="/register" class="nav-link">Signup</a>
+          </li>
+          <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+          <% } else { %>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link">Logout</a>
+          </li>
+          <% } %>
+        </ul>
+      </div>
     </nav>
+
+    <% if(success && success.length > 0) { %>
+    <div class="alert alert-success" role="alert">
+      <%= success %>
+    </div>
+    <% } if(error && error.length > 0) { %>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+   <% } %>
+  </body>
+</html>
