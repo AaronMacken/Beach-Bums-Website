@@ -12,7 +12,9 @@ const express = require("express"),
   Comment = require("./models/comment"),
   User = require("./models/user"),
   seedDB = require("./seeds"),
-  flash = require("connect-flash");
+  flash = require("connect-flash"),
+  session = require("express-session"),
+  MongoStore = require("connect-mongo")(session);
 
   // Requiring Routes
   const commentRoutes = require("./routes/comments"),
@@ -20,8 +22,8 @@ const express = require("express"),
         indexRoutes = require("./routes/index");
         
 // Connect & Configure Mongo
-var url = (process.env.DATABASEURL || "mongodb://localhost:27017/beachApp");
-mongoose.connect(url,{
+var myUrl = (process.env.DATABASEURL || "mongodb://localhost:27017/beachApp");
+mongoose.connect(myUrl,{
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
@@ -38,12 +40,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-// Express-session Configure
-app.use(
-  require("express-session")({
+// Express-session Configure & Unleak memory
+app.use(session({
     secret: "This is a secret",
+    store: new MongoStore({
+      url: myUrl,
+      ttl: 14 * 24 * 60 * 60,
+      autoRemove: "disabled"
+    }),
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
   })
 );
 
