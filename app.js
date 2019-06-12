@@ -44,7 +44,8 @@ app.use(flash());
 app.use(session({
     secret: "This is a secret",
     store: new MongoStore({
-      db: dbInstance
+      url: myUrl,
+      autoRemove: "disabled"
     }),
     resave: false,
     saveUninitialized: true
