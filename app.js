@@ -23,12 +23,12 @@ const express = require("express"),
         
 // Connect & Configure Mongo
 var myUrl = (process.env.DATABASEURL || "mongodb://localhost:27017/beachApp");
-mongoose.connect(myUrl,{
+mongoose.connect("mongodb+srv://aaron:smurf123@cluster0-avxko.mongodb.net/test?retryWrites=true&w=majority",{
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
 }).then(() => {
-  console.log("Connected");
+  console.log("Connected to DB");
 }).catch(err => {
   console.log("Error", err.message);
 });
@@ -43,10 +43,6 @@ app.use(flash());
 // Express-session Configure & Unleak memory
 app.use(session({
     secret: "This is a secret",
-    store: new MongoStore({
-      url: myUrl,
-      autoRemove: "disabled"
-    }),
     resave: false,
     saveUninitialized: true
   })
@@ -76,4 +72,4 @@ app.use("/beaches",beachesRoutes);
 app.use("/beaches/:id/comments", commentRoutes);
 
 // port listen
-app.listen(process.env.port || 3000, () => console.log("Server is listening."));
+app.listen(process.env.port || 3000, process.env.IP, () => console.log("Server is listening."));
