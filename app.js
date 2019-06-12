@@ -72,4 +72,4 @@ app.use("/beaches",beachesRoutes);
 app.use("/beaches/:id/comments", commentRoutes);
 
 // port listen
-app.listen(process.env.port || 3000, process.env.IP, () => console.log("Server is listening."));
+app.listen(process.env.port, process.env.IP, () => console.log("Server is listening."));
