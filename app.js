@@ -71,4 +71,5 @@ app.use("/beaches",beachesRoutes);
 app.use("/beaches/:id/comments", commentRoutes);
 
 // port listen
+// Ensure this line is correct when deploying to heroku!
 app.listen(process.env.PORT || 3000, () => console.log("Server is listening."));
