@@ -20,11 +20,15 @@ const express = require("express"),
         indexRoutes = require("./routes/index");
         
 // Connect & Configure Mongo
-var url = process.env.DATABASEURL || "mongodb://localhost:27017/beachApp"
+var url = (process.env.DATABASEURL || "mongodb://localhost:27017/beachApp");
 mongoose.connect(url,{
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false
+}).then(() => {
+  console.log("Connected");
+}).catch(err => {
+  console.log("Error", err.message);
 });
 
 // App Configure
