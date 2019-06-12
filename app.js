@@ -18,10 +18,12 @@ const express = require("express"),
   const commentRoutes = require("./routes/comments"),
         beachesRoutes  = require("./routes/beaches"),
         indexRoutes = require("./routes/index");
-
+        
 // Connect & Configure Mongo
-mongoose.connect("mongodb://localhost:27017/beachApp", {
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/beachApp"
+mongoose.connect(url,{
   useNewUrlParser: true,
+  useCreateIndex: true,
   useFindAndModify: false
 });
 
