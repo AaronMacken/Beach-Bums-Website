@@ -44,9 +44,7 @@ app.use(flash());
 app.use(session({
     secret: "This is a secret",
     store: new MongoStore({
-      url: myUrl,
-      ttl: 14 * 24 * 60 * 60,
-      autoRemove: "disabled"
+      db: dbInstance
     }),
     resave: false,
     saveUninitialized: true
@@ -77,4 +75,4 @@ app.use("/beaches",beachesRoutes);
 app.use("/beaches/:id/comments", commentRoutes);
 
 // port listen
-app.listen(3000, () => console.log("Server is listening."));
+app.listen(process.env.port || 3000, () => console.log("Server is listening."));
